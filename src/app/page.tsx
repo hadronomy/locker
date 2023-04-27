@@ -15,13 +15,13 @@ export default function HomePage() {
         </h1>
       </div>
       <div className="container flex items-center justify-center gap-x-4 text-white">
-        <Button>
+        <Button variant="link">
           <Link href="/signin">Login</Link>
         </Button>
-        <Button>
+        <Button variant="link">
           <Link href="/signup">Register</Link>
         </Button>
-        <Button>
+        <Button variant="link">
           <Link href="/panel">Panel</Link>
         </Button>
       </div>
