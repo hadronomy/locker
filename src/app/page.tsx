@@ -10,9 +10,7 @@ export default function HomePage() {
           Work <span className="text-[hsl(280,100%,70%)]">In Progress</span>
         </h1>
       </div>
-      <div className="container flex justify-center items-center">
-        <
-      </div>
+      <div className="container flex items-center justify-center"></div>
     </main>
   );
 }
