@@ -16,7 +16,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
           baseTheme: dark,
           variables: {
             colorBackground: 'hsl(223 47% 11%)',
-            colorText: 'hsl(213 31% 91%)'
+            colorText: 'hsl(213 31% 91%)',
+            colorPrimary: 'hsl(210 40% 98%)',
+            colorTextOnPrimaryBackground: 'hsl(222.2 47.4% 1.2%)',
+            colorDanger: 'hsl(0 70% 50%)',
+            colorInputBackground: 'hsl(224 71% 4%)'
           }
         }}
       >
