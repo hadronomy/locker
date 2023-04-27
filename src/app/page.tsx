@@ -1,3 +1,7 @@
+import Link from 'next/link';
+
+import { Button } from '~/components/ui/button';
+
 export const metadata = {
   title: 'Locker - Home'
 };
@@ -10,7 +14,17 @@ export default function HomePage() {
           Work <span className="text-[hsl(280,100%,70%)]">In Progress</span>
         </h1>
       </div>
-      <div className="container flex items-center justify-center"></div>
+      <div className="container flex items-center justify-center gap-x-4 text-white">
+        <Button>
+          <Link href="/signin">Login</Link>
+        </Button>
+        <Button>
+          <Link href="/signup">Register</Link>
+        </Button>
+        <Button>
+          <Link href="/panel">Panel</Link>
+        </Button>
+      </div>
     </main>
   );
 }
