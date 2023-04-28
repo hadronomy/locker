@@ -18,7 +18,7 @@ export function NavbarLogin({ className, ...props }: NavbarLoginProps) {
 
   return (
     <div className={cn(navbarLoginStyle({ className }))} {...props}>
-      <div className="flex items-center gap-x-6">
+      <div className="flex items-center gap-x-4">
         <UserButton />
         <Link
           className={cn(
