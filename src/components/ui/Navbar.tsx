@@ -28,7 +28,9 @@ export function Navbar({ className, links, ...props }: NavBarProps) {
     <header className={cn(navbarStyle({ className }))} {...props}>
       <nav className="mx-auto flex max-w-screen-xl items-center justify-between px-6 py-4">
         <div className="inline-flex">
-          <h1 className="text-xl font-extrabold tracking-tighter">Locker</h1>
+          <Link href="/">
+            <h1 className="text-xl font-extrabold tracking-tighter">Locker</h1>
+          </Link>
         </div>
         <NavigationMenu className="hidden items-end justify-end md:inline-flex">
           <NavigationMenuList>
