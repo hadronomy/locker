@@ -26,7 +26,6 @@ export function NavbarLogin({ className, ...props }: NavbarLoginProps) {
             'w-28 font-bold'
           )}
           href={!isSignedIn ? '/signin' : '/panel'}
-          role="none"
         >
           {!isSignedIn && 'Login'}
           {!!isSignedIn && 'Panel'}
