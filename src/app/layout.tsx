@@ -2,11 +2,24 @@ import React from 'react';
 import { ClerkProvider } from '@clerk/nextjs/app-beta';
 import { dark } from '@clerk/themes';
 
+import { Navbar } from '~/components/ui/Navbar';
+
 import '~/styles/globals.css';
 
 type RootLayoutProps = {
   children: React.ReactNode;
 };
+
+const navbarLinks = [
+  {
+    label: 'About',
+    href: '/about'
+  },
+  {
+    label: 'Pricing',
+    href: '/pricing'
+  }
+];
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
@@ -24,7 +37,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
           }
         }}
       >
-        <body>{children}</body>
+        <body>
+          <Navbar links={navbarLinks} />
+          {children}
+        </body>
       </ClerkProvider>
     </html>
   );

@@ -1,24 +1,10 @@
-import { Navbar } from '~/components/ui/Navbar';
-
 export const metadata = {
   title: 'Locker - Home'
 };
 
-const navbarLinks = [
-  {
-    label: 'About',
-    href: '/about'
-  },
-  {
-    label: 'Pricing',
-    href: '/pricing'
-  }
-];
-
 export default function HomePage() {
   return (
     <>
-      <Navbar links={navbarLinks} />
       <main className="flex min-h-screen flex-col items-center justify-center">
         <section className="container flex h-screen flex-col items-center justify-center gap-12 px-4 py-16">
           <h1 className="tracking-tigh text-center text-5xl font-extrabold text-white sm:text-[5rem]">
