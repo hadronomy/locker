@@ -38,7 +38,7 @@ export default function HomePage() {
               </span>
             </p>
           </h1>
-          <h1 className="bg-gradient-to-br from-gray-500 via-indigo-500 to-purple-200 bg-clip-text text-5xl font-extrabold tracking-tight text-transparent text-white sm:text-[5rem]"></h1>
+          <h2>Holita adios</h2>
         </section>
       </main>
     </>
