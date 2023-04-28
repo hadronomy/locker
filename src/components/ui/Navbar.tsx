@@ -1,6 +1,5 @@
-import React from 'react';
+import { type HTMLAttributes } from 'react';
 import { cva } from 'class-variance-authority';
-import { UserButton } from '@clerk/nextjs/app-beta';
 import Link from 'next/link';
 
 import { cn } from '~/lib/utils';
@@ -9,10 +8,11 @@ import {
   NavigationMenuItem,
   NavigationMenuList
 } from './NavigationMenu';
-import { Button } from './Button';
-import { Separator } from './Separator';
 
-export type NavBarProps = React.HTMLAttributes<HTMLHeadElement> & {
+import { Separator } from './Separator';
+import { NavbarLogin } from './NavbarLogin';
+
+export type NavBarProps = HTMLAttributes<HTMLHeadElement> & {
   links: {
     label: string;
     href: string;
@@ -20,17 +20,17 @@ export type NavBarProps = React.HTMLAttributes<HTMLHeadElement> & {
 };
 
 export const navbarStyle = cva(
-  'sticky top-0 max-h-20 w-full border-b bg-background/60 backdrop-blur-[8px]'
+  'sticky top-0 w-full border-b bg-background/60 backdrop-blur-[8px]'
 );
 
 export function Navbar({ className, links, ...props }: NavBarProps) {
   return (
     <header className={cn(navbarStyle({ className }))} {...props}>
-      <nav className="mx-auto flex max-h-20 max-w-screen-xl items-center justify-between p-6">
+      <nav className="mx-auto flex max-w-screen-xl items-center justify-between px-6 py-4">
         <div className="inline-flex">
           <h1 className="text-xl font-extrabold tracking-tighter">Locker</h1>
         </div>
-        <NavigationMenu className="items-end justify-end">
+        <NavigationMenu className="hidden items-end justify-end md:inline-flex">
           <NavigationMenuList>
             {links.map((link) => (
               <NavigationMenuItem key={link.label}>
@@ -44,15 +44,12 @@ export function Navbar({ className, links, ...props }: NavBarProps) {
             ))}
           </NavigationMenuList>
         </NavigationMenu>
-        <Separator className="h-[30px]" orientation="vertical" decorative />
-        <div className="flex">
-          <UserButton />
-          <Button className="font-bold">
-            <Link href="/signin" role="none">
-              Login
-            </Link>
-          </Button>
-        </div>
+        <Separator
+          className="hidden h-[30px] md:inline-flex"
+          orientation="vertical"
+          decorative
+        />
+        <NavbarLogin />
       </nav>
     </header>
   );
