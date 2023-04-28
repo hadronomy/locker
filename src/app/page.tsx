@@ -1,6 +1,3 @@
-import Link from 'next/link';
-
-import { Button } from '~/components/ui/Button';
 import { Navbar } from '~/components/ui/Navbar';
 
 export const metadata = {
