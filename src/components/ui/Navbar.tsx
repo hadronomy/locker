@@ -20,7 +20,7 @@ export type NavBarProps = HTMLAttributes<HTMLHeadElement> & {
 };
 
 export const navbarStyle = cva(
-  'sticky top-0 w-full border-b bg-background/60 backdrop-blur-[8px]'
+  'sticky z-20 top-0 w-full border-b bg-background/60 backdrop-blur-[8px]'
 );
 
 export function Navbar({ className, links, ...props }: NavBarProps) {
