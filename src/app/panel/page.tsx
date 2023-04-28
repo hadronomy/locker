@@ -1,5 +1,9 @@
 import { UserButton } from '@clerk/nextjs/app-beta';
 
+export const metadata = {
+  title: 'Locker - Panel'
+};
+
 export default function PanelPage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
