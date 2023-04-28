@@ -6,7 +6,7 @@ import { UserButton } from '@clerk/nextjs/app-beta';
 import { useAuth } from '@clerk/nextjs';
 import Link from 'next/link';
 
-import { Button, buttonVariants } from './Button';
+import { buttonVariants } from './Button';
 import { cn } from '~/lib/utils';
 
 type NavbarLoginProps = HTMLAttributes<HTMLDivElement>;
