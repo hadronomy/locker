@@ -1,5 +1,5 @@
 import { type HTMLAttributes } from 'react';
-import { cva } from 'class-variance-authority';
+import { type VariantProps, cva } from 'class-variance-authority';
 import Link from 'next/link';
 
 import { cn } from '~/lib/utils';
@@ -12,18 +12,19 @@ import {
 import { Separator } from './Separator';
 import { NavbarLogin } from './NavbarLogin';
 
-export type NavBarProps = HTMLAttributes<HTMLHeadElement> & {
-  links: {
-    label: string;
-    href: string;
-  }[];
-};
-
 export const navbarStyle = cva(
   'sticky z-20 top-0 w-full border-b bg-background/60 backdrop-blur-[8px]'
 );
 
-export function Navbar({ className, links, ...props }: NavBarProps) {
+export type NavbarProps = HTMLAttributes<HTMLHeadElement> &
+  VariantProps<typeof navbarStyle> & {
+    links: {
+      label: string;
+      href: string;
+    }[];
+  };
+
+export function Navbar({ className, links, ...props }: NavbarProps) {
   return (
     <header className={cn(navbarStyle({ className }))} {...props}>
       <nav className="mx-auto flex max-w-screen-xl items-center justify-between px-6 py-4">
