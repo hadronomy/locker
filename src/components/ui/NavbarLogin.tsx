@@ -6,7 +6,7 @@ import { UserButton } from '@clerk/nextjs/app-beta';
 import { useAuth } from '@clerk/nextjs';
 import Link from 'next/link';
 
-import { Button } from './Button';
+import { Button, buttonVariants } from './Button';
 import { cn } from '~/lib/utils';
 
 type NavbarLoginProps = HTMLAttributes<HTMLDivElement>;
@@ -20,12 +20,17 @@ export function NavbarLogin({ className, ...props }: NavbarLoginProps) {
     <div className={cn(navbarLoginStyle({ className }))} {...props}>
       <div className="flex items-center gap-x-6">
         <UserButton />
-        <Button className="w-28 font-bold">
-          <Link href={!isSignedIn ? '/signin' : '/panel'} role="none">
-            {!isSignedIn && 'Login'}
-            {!!isSignedIn && 'Panel'}
-          </Link>
-        </Button>
+        <Link
+          className={cn(
+            buttonVariants({ variant: 'default' }),
+            'w-28 font-bold'
+          )}
+          href={!isSignedIn ? '/signin' : '/panel'}
+          role="none"
+        >
+          {!isSignedIn && 'Login'}
+          {!!isSignedIn && 'Panel'}
+        </Link>
       </div>
     </div>
   );
