@@ -8,7 +8,6 @@ import {
   NavigationMenuItem,
   NavigationMenuList
 } from './NavigationMenu';
-
 import { Separator } from './Separator';
 import { NavbarLogin } from './NavbarLogin';
 
