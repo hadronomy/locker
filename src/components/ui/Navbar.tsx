@@ -1,4 +1,3 @@
-import { type HTMLAttributes } from 'react';
 import { type VariantProps, cva } from 'class-variance-authority';
 import Link from 'next/link';
 
@@ -15,7 +14,7 @@ export const navbarStyle = cva(
   'sticky z-20 top-0 w-full border-b bg-background/60 backdrop-blur-[8px]'
 );
 
-export type NavbarProps = HTMLAttributes<HTMLHeadElement> &
+export type NavbarProps = React.HTMLAttributes<HTMLHeadElement> &
   VariantProps<typeof navbarStyle> & {
     links: {
       label: string;
