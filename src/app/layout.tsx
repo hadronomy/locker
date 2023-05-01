@@ -1,9 +1,15 @@
 import { ClerkProvider } from '@clerk/nextjs/app-beta';
 import { dark } from '@clerk/themes';
+import { Urbanist } from 'next/font/google';
 
 import { Navbar } from '~/components/ui/Navbar';
 
 import '~/styles/globals.css';
+
+const urbanistFont = Urbanist({
+  weight: ['100', '200', '300', '500', '600', '700', '800', '900'],
+  subsets: ['latin']
+});
 
 type RootLayoutProps = {
   children: React.ReactNode;
@@ -22,7 +28,7 @@ const navbarLinks = [
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html className="dark" lang="en">
+    <html className={`${urbanistFont.className} dark`} lang="en">
       <ClerkProvider
         appearance={{
           baseTheme: dark,
