@@ -20,7 +20,7 @@ export function NavbarLogin({ className, ...props }: NavbarLoginProps) {
   return (
     <div className={cn(navbarLoginStyle({ className }))} {...props}>
       <div className="flex items-center gap-x-4">
-        <UserButton afterSignOutUrl="/" />
+        {!!isSignedIn && <UserButton afterSignOutUrl="/" />}
         <Link
           className={cn(
             buttonVariants({ variant: 'default' }),
