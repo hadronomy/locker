@@ -37,7 +37,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         }}
       >
         <body>
-          <Navbar links={navbarLinks} />
+          <Navbar links={navbarLinks} placement="static" border="none" />
           {children}
         </body>
       </ClerkProvider>

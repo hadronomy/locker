@@ -12,7 +12,25 @@ import { Separator } from './Separator';
 import { NavbarLogin } from './NavbarLogin';
 
 export const navbarStyle = cva(
-  'sticky z-20 top-0 w-full border-b bg-background/60 backdrop-blur-[8px]'
+  'z-20 w-full bg-background/60 backdrop-blur-[8px]',
+  {
+    variants: {
+      placement: {
+        sticky: 'sticky top-0',
+        fixed: 'fixed top-0',
+        static: 'static'
+      },
+      border: {
+        none: 'border-0',
+        bottom: 'border-b',
+        onScroll: ''
+      }
+    },
+    defaultVariants: {
+      border: 'bottom',
+      placement: 'sticky'
+    }
+  }
 );
 
 export type NavbarProps = React.HTMLAttributes<HTMLHeadElement> &
@@ -23,9 +41,18 @@ export type NavbarProps = React.HTMLAttributes<HTMLHeadElement> &
     }[];
   };
 
-export function Navbar({ className, links, ...props }: NavbarProps) {
+export function Navbar({
+  className,
+  links,
+  placement,
+  border,
+  ...props
+}: NavbarProps) {
   return (
-    <header className={cn(navbarStyle({ className }))} {...props}>
+    <header
+      className={cn(navbarStyle({ className, placement, border }))}
+      {...props}
+    >
       <nav className="mx-auto flex max-w-screen-xl items-center justify-between px-6 py-4">
         <div className="inline-flex">
           <Link href="/">
