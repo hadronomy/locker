@@ -7,7 +7,7 @@ export default function HomePage() {
     <>
       <main className="flex min-h-screen flex-col items-center justify-center">
         <section className="container flex h-screen flex-col items-center justify-center gap-12 px-4 py-16">
-          <h1 className="tracking-tigh text-center text-4xl font-extrabold text-white sm:text-[5rem] md:text-5xl">
+          <h1 className="tracking-tigh text-center text-4xl font-extrabold text-white md:text-5xl">
             <p>
               <span className="bg-gradient-to-br from-gray-500 via-indigo-500 to-purple-200 bg-clip-text text-transparent">
                 Unlocks
