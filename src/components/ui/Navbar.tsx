@@ -1,18 +1,12 @@
+'use client';
+
 import * as React from 'react';
 import { type VariantProps, cva } from 'class-variance-authority';
-import Link from 'next/link';
 
 import { cn } from '~/lib/utils';
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuList
-} from './NavigationMenu';
-import { Separator } from './Separator';
-import { NavbarLogin } from './NavbarLogin';
 
 export const navbarStyle = cva(
-  'z-20 w-full bg-background/60 backdrop-blur-[8px]',
+  'z-20 w-full bg-background/60 backdrossssp-blur-[8px]',
   {
     variants: {
       placement: {
@@ -35,17 +29,14 @@ export const navbarStyle = cva(
 
 export type NavbarProps = React.HTMLAttributes<HTMLHeadElement> &
   VariantProps<typeof navbarStyle> & {
-    links: {
-      label: string;
-      href: string;
-    }[];
+    children: React.ReactNode;
   };
 
 export function Navbar({
   className,
-  links,
   placement,
   border,
+  children,
   ...props
 }: NavbarProps) {
   return (
@@ -53,33 +44,41 @@ export function Navbar({
       className={cn(navbarStyle({ className, placement, border }))}
       {...props}
     >
-      <nav className="mx-auto flex max-w-screen-xl items-center justify-between px-6 py-4">
-        <div className="inline-flex">
-          <Link href="/">
-            <h1 className="text-xl font-extrabold tracking-tighter">Locker</h1>
-          </Link>
-        </div>
-        <NavigationMenu className="hidden items-end justify-end md:inline-flex">
-          <NavigationMenuList>
-            {links.map((link) => (
-              <NavigationMenuItem key={link.label}>
-                <Link
-                  className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                  href={link.href}
-                >
-                  {link.label}
-                </Link>
-              </NavigationMenuItem>
-            ))}
-          </NavigationMenuList>
-        </NavigationMenu>
-        <Separator
-          className="hidden h-[30px] md:inline-flex"
-          orientation="vertical"
-          decorative
-        />
-        <NavbarLogin />
-      </nav>
+      {children}
     </header>
+  );
+}
+
+export const navbarLayoutStyle = cva(
+  'mx-auto flex items-center justify-between px-6 py-4',
+  {
+    variants: {
+      size: {
+        sm: 'max-w-screen-sm',
+        lg: 'max-w-screen-lg',
+        xl: 'max-w-screen-xl'
+      }
+    },
+    defaultVariants: {
+      size: 'xl'
+    }
+  }
+);
+
+export type NavbarLayoutProps = React.HTMLAttributes<HTMLDivElement> &
+  VariantProps<typeof navbarLayoutStyle> & {
+    children: React.ReactNode;
+  };
+
+export function NavbarLayout({
+  className,
+  size,
+  children,
+  ...props
+}: NavbarLayoutProps) {
+  return (
+    <nav className={cn(navbarLayoutStyle({ className, size }))} {...props}>
+      {children}
+    </nav>
   );
 }
