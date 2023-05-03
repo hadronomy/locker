@@ -1,3 +1,4 @@
+import { Navbar, NavbarLayout } from '~/components/ui/Navbar';
 import '~/styles/globals.css';
 
 type RootLayoutProps = {
@@ -5,5 +6,12 @@ type RootLayoutProps = {
 };
 
 export default function PanelLayout({ children }: RootLayoutProps) {
-  return <>{children}</>;
+  return (
+    <>
+      <Navbar>
+        <NavbarLayout></NavbarLayout>
+      </Navbar>
+      {children}
+    </>
+  );
 }

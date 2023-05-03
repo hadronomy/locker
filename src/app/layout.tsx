@@ -3,13 +3,13 @@ import { dark } from '@clerk/themes';
 import { Urbanist } from 'next/font/google';
 import Link from 'next/link';
 
-import { Navbar, NavbarLayout } from '~/components/ui/Navbar';
-import { NavbarLogin } from '~/components/ui/NavbarLogin';
 import {
-  NavigationMenu,
-  NavigationMenuList,
-  NavigationMenuItem
-} from '~/components/ui/NavigationMenu';
+  Navbar,
+  NavbarLayout,
+  NavbarLinks,
+  type NavbarLink
+} from '~/components/ui/Navbar';
+import { NavbarLogin } from '~/components/ui/NavbarLogin';
 import { Separator } from '~/components/ui/Separator';
 
 import '~/styles/globals.css';
@@ -26,13 +26,22 @@ type RootLayoutProps = {
 const navbarLinks = [
   {
     label: 'About',
-    href: '/about'
+    type: 'dropdown',
+    content: {
+      links: [
+        {
+          label: 'fuckme',
+          href: '/example'
+        }
+      ]
+    }
   },
   {
     label: 'Pricing',
+    type: 'link',
     href: '/pricing'
   }
-];
+] satisfies NavbarLink[];
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
@@ -60,20 +69,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
                   </h1>
                 </Link>
               </div>
-              <NavigationMenu className="hidden items-end justify-end md:inline-flex">
-                <NavigationMenuList>
-                  {navbarLinks.map((link) => (
-                    <NavigationMenuItem key={link.label}>
-                      <Link
-                        className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                        href={link.href}
-                      >
-                        {link.label}
-                      </Link>
-                    </NavigationMenuItem>
-                  ))}
-                </NavigationMenuList>
-              </NavigationMenu>
+              <NavbarLinks
+                className="hidden items-end justify-end md:flex"
+                links={navbarLinks}
+              />
               <Separator
                 className="hidden h-[30px] md:inline-flex"
                 orientation="vertical"
