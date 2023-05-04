@@ -30,7 +30,7 @@ const navbarLinks = [
     content: {
       links: [
         {
-          label: 'fuckme',
+          label: 'example',
           href: '/example'
         }
       ]
@@ -69,10 +69,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
                   </h1>
                 </Link>
               </div>
-              <NavbarLinks
-                className="hidden items-end justify-end md:flex"
-                links={navbarLinks}
-              />
+              <div className="flex w-full items-end justify-end">
+                <NavbarLinks
+                  className="hidden flex-grow-0 md:inline-flex"
+                  links={navbarLinks}
+                />
+              </div>
               <Separator
                 className="hidden h-[30px] md:inline-flex"
                 orientation="vertical"

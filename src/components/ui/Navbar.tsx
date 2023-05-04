@@ -132,9 +132,7 @@ export function NavbarLinks({ className, links, ...props }: NavbarLinksProps) {
           <NavigationMenuItem key={link.label}>
             {link.type === 'dropdown' && (
               <>
-                <NavigationMenuTrigger disabled>
-                  {link.label}
-                </NavigationMenuTrigger>
+                <NavigationMenuTrigger>{link.label}</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   {link.content.links.map((dropdownLink) => (
                     <Link
