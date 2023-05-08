@@ -1,4 +1,4 @@
-import { SignUp } from '@clerk/nextjs/app-beta';
+import { SignUp } from '@clerk/nextjs';
 
 export const metadata = {
   title: 'Locker - Signup'

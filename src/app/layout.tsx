@@ -1,8 +1,16 @@
-import { ClerkProvider } from '@clerk/nextjs/app-beta';
+import { ClerkProvider } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
 import { Urbanist } from 'next/font/google';
+import Link from 'next/link';
 
-import { Navbar } from '~/components/ui/Navbar';
+import {
+  Navbar,
+  NavbarLayout,
+  NavbarLinks,
+  type NavbarLink
+} from '~/components/ui/Navbar';
+import { NavbarLogin } from '~/components/ui/NavbarLogin';
+import { Separator } from '~/components/ui/Separator';
 
 import '~/styles/globals.css';
 
@@ -18,13 +26,22 @@ type RootLayoutProps = {
 const navbarLinks = [
   {
     label: 'About',
-    href: '/about'
+    type: 'dropdown',
+    content: {
+      links: [
+        {
+          label: 'example',
+          href: '/example'
+        }
+      ]
+    }
   },
   {
     label: 'Pricing',
+    type: 'link',
     href: '/pricing'
   }
-];
+] satisfies NavbarLink[];
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
@@ -43,7 +60,29 @@ export default function RootLayout({ children }: RootLayoutProps) {
         }}
       >
         <body>
-          <Navbar links={navbarLinks} placement="static" border="none" />
+          <Navbar placement="static" border="none">
+            <NavbarLayout>
+              <div className="inline-flex">
+                <Link href="/">
+                  <h1 className="text-xl font-extrabold tracking-tighter">
+                    Locker
+                  </h1>
+                </Link>
+              </div>
+              <div className="flex w-full items-end justify-end">
+                <NavbarLinks
+                  className="hidden flex-grow-0 md:inline-flex"
+                  links={navbarLinks}
+                />
+              </div>
+              <Separator
+                className="hidden h-[30px] md:inline-flex"
+                orientation="vertical"
+                decorative
+              />
+              <NavbarLogin />
+            </NavbarLayout>
+          </Navbar>
           {children}
         </body>
       </ClerkProvider>
