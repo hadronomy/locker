@@ -1,4 +1,4 @@
-import { ClerkProvider } from '@clerk/nextjs/app-beta';
+import { ClerkProvider } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
 import { Urbanist } from 'next/font/google';
 import Link from 'next/link';

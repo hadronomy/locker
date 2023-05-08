@@ -2,8 +2,7 @@
 
 import * as React from 'react';
 import { type VariantProps, cva } from 'class-variance-authority';
-import { UserButton } from '@clerk/nextjs/app-beta';
-import { useAuth } from '@clerk/nextjs';
+import { UserButton, useAuth } from '@clerk/nextjs';
 import Link from 'next/link';
 
 import { buttonVariants } from './Button';
