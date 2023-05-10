@@ -37,7 +37,7 @@ export const navbarStyle = cva(
   }
 );
 
-export type NavbarProps = React.HTMLAttributes<HTMLHeadElement> &
+export type NavbarProps = React.ComponentProps<'header'> &
   VariantProps<typeof navbarStyle>;
 
 const navbarContext = React.createContext({});
@@ -75,7 +75,7 @@ export const navbarLayoutStyle = cva(
   }
 );
 
-export type NavbarLayoutProps = React.HTMLAttributes<HTMLDivElement> &
+export type NavbarLayoutProps = React.ComponentProps<'div'> &
   VariantProps<typeof navbarLayoutStyle>;
 
 export function NavbarLayout({

@@ -10,7 +10,7 @@ import { cn } from '~/lib/utils';
 
 export const navbarLoginStyle = cva('flex');
 
-export type NavbarLoginProps = React.HTMLAttributes<HTMLDivElement> &
+export type NavbarLoginProps = React.ComponentProps<"div"> &
   VariantProps<typeof navbarLoginStyle>;
 
 export function NavbarLogin({ className, ...props }: NavbarLoginProps) {
