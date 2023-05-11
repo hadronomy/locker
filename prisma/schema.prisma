@@ -8,8 +8,15 @@ datasource db {
   relationMode = "prisma"
 }
 
-model Lock {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model SmartLock {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  locked      Boolean  @default(false)
+  owner       String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([owner, createdAt(sort: Desc)])
+  @@map("smart_lock")
 }

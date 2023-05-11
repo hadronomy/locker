@@ -11,6 +11,7 @@ import {
 } from '~/components/ui/Navbar';
 import { NavbarLogin } from '~/components/ui/NavbarLogin';
 import { Separator } from '~/components/ui/Separator';
+import { TRPCProvider } from '~/components/provider/TRPCProvider';
 
 import '~/styles/globals.css';
 
@@ -83,7 +84,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <NavbarLogin />
             </NavbarLayout>
           </Navbar>
-          {children}
+          <TRPCProvider>{children}</TRPCProvider>
         </body>
       </ClerkProvider>
     </html>

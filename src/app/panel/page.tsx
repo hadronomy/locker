@@ -13,35 +13,11 @@ import {
 } from '~/components/ui/AlertDialog';
 import { cn } from '~/lib/utils';
 import { Label } from '~/components/ui/Label';
-import LockCard from '~/components/ui/LockCard';
+import { LockGrid } from '~/components/panel/LockGrid';
 
 export const metadata = {
   title: 'Locker - Panel'
 };
-
-type Lock = {
-  name: string;
-  description: string;
-  status: 'Locked' | 'Unlocked';
-};
-
-const locks = [
-  {
-    name: 'Kitchen',
-    description: 'Lorem ipsum',
-    status: 'Locked'
-  },
-  {
-    name: 'Bedroom',
-    description: 'Lorem ipsum',
-    status: 'Unlocked'
-  },
-  {
-    name: 'Livingroom',
-    description: 'Lorem ipsum',
-    status: 'Locked'
-  }
-] satisfies Lock[];
 
 export default function PanelPage() {
   return (
@@ -83,16 +59,7 @@ export default function PanelPage() {
         </AlertDialog>
       </div>
       <div className="flex flex-col py-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          {locks.map((lock) => (
-            <LockCard
-              key={lock.name}
-              name={lock.name}
-              description={lock.description}
-              status={lock.status}
-            />
-          ))}
-        </div>
+        <LockGrid />
       </div>
     </main>
   );
