@@ -1,3 +1,4 @@
+import { Button } from '~/components/ui/Button';
 import { Navbar, NavbarLayout } from '~/components/ui/Navbar';
 import '~/styles/globals.css';
 
@@ -9,7 +10,15 @@ export default function PanelLayout({ children }: RootLayoutProps) {
   return (
     <>
       <Navbar>
-        <NavbarLayout></NavbarLayout>
+        <NavbarLayout className="p-0 pl-2">
+          <Button
+            className="relative font-bold hover:no-underline"
+            variant="link"
+          >
+            Overview
+            <div className="absolute bottom-0 left-0 h-[2px] w-full bg-white"></div>
+          </Button>
+        </NavbarLayout>
       </Navbar>
       {children}
     </>
