@@ -13,6 +13,8 @@
     "@clerk/nextjs": "^4.17.1",
     "@clerk/themes": "^1.6.3",
     "@prisma/client": "^4.11.0",
+    "@radix-ui/react-alert-dialog": "^1.0.3",
+    "@radix-ui/react-label": "^2.0.1",
     "@radix-ui/react-navigation-menu": "^1.1.2",
     "@radix-ui/react-separator": "^1.0.2",
     "@t3-oss/env-nextjs": "^0.2.2",
