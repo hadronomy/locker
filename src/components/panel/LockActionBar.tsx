@@ -45,7 +45,6 @@ export function LockActionBar({ className, ...props }: LockActionProps) {
           </AlertDialogHeader>
           <form
             onSubmit={(e) => {
-              alert('FUCK YOU');
               e.preventDefault();
               const form = e.currentTarget;
               const formData = new FormData(form);
