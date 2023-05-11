@@ -12,10 +12,10 @@ export const lockGridStyle = cva('grid grid-cols-1 gap-8 md:grid-cols-3');
 export type LockGridProps = React.ComponentProps<'div'> &
   VariantProps<typeof lockGridStyle>;
 
-export function LockGrid({ className }: LockGridProps) {
+export function LockGrid({ className, ...props }: LockGridProps) {
   const { data } = trpc.lock.getAll.useQuery();
   return (
-    <div className={`${cn(lockGridStyle({ className }))}`}>
+    <div className={`${cn(lockGridStyle({ className }))}`} {...props}>
       {!!data &&
         data.map((data) => (
           <LockCard

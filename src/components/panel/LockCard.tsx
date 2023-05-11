@@ -25,7 +25,8 @@ export function LockCard({
   lockId,
   name,
   description,
-  locked
+  locked,
+  ...props
 }: LockCardProps) {
   const deleteLock = trpc.lock.remove.useMutation();
 
@@ -34,7 +35,7 @@ export function LockCard({
   };
 
   return (
-    <div className={`${cn(lockCardStyle({ className }))}`} key={name}>
+    <div className={`${cn(lockCardStyle({ className }))}`} {...props}>
       <div className="flex flex-col place-items-center justify-center">
         {!locked && (
           <Unlock
