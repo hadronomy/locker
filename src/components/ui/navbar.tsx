@@ -13,7 +13,7 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
   NavigationMenuTrigger
-} from './NavigationMenu';
+} from './navigation-menu';
 
 export const navbarStyle = cva(
   'z-20 w-full bg-background/60 backdrossssp-blur-[8px]',

@@ -1,5 +1,5 @@
-import { Button } from '~/components/ui/Button';
-import { Navbar, NavbarLayout } from '~/components/ui/Navbar';
+import { Button } from '~/components/ui/button';
+import { Navbar, NavbarLayout } from '~/components/ui/navbar';
 import '~/styles/globals.css';
 
 type RootLayoutProps = {

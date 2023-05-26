@@ -5,7 +5,7 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import { UserButton, useAuth } from '@clerk/nextjs';
 import Link from 'next/link';
 
-import { buttonVariants } from './Button';
+import { buttonVariants } from './button';
 import { cn } from '~/lib/utils';
 import { usePathname } from 'next/navigation';
 

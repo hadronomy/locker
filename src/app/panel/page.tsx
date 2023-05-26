@@ -1,5 +1,5 @@
-import { LockActionBar } from '~/components/panel/LockActionBar';
-import { LockGrid } from '~/components/panel/LockGrid';
+import { LockActionBar } from '~/components/panel/lock-action-bar';
+import { LockGrid } from '~/components/panel/lock-grid';
 
 export const metadata = {
   title: 'Locker - Panel'

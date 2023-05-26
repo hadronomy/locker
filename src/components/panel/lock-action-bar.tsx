@@ -4,8 +4,8 @@ import * as React from 'react';
 import { useAuth } from '@clerk/nextjs';
 import { cva } from 'class-variance-authority';
 
-import { Button, buttonVariants } from '~/components/ui/Button';
-import { Input } from '~/components/ui/Input';
+import { Button, buttonVariants } from '~/components/ui/button';
+import { Input } from '~/components/ui/input';
 import {
   AlertDialog,
   AlertDialogTrigger,
@@ -14,9 +14,9 @@ import {
   AlertDialogTitle,
   AlertDialogFooter,
   AlertDialogCancel
-} from '~/components/ui/AlertDialog';
+} from '~/components/ui/alert-dialog';
 import { cn } from '~/lib/utils';
-import { Label } from '~/components/ui/Label';
+import { Label } from '~/components/ui/label';
 import { trpc } from '~/utils/trpc';
 
 export const lockActionBarStyle = cva('mt-10 flex gap-x-3');
@@ -44,14 +44,12 @@ export function LockActionBar({ className, ...props }: LockActionProps) {
             <AlertDialogTitle>Add a New Lock</AlertDialogTitle>
           </AlertDialogHeader>
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const form = e.currentTarget;
-              const formData = new FormData(form);
+            onSubmit={(_) => {
               // addLock.mutate({
-              //   name: formData.get('name'),
-              //   description: formData.get('description'),
-              //   owner: userId
+              //   name: 'Kitchen',
+              //   description: 'what',
+              //   locked: false,
+              //   owner: 'Someone'
               // });
             }}
           >

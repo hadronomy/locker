@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { type VariantProps, cva } from 'class-variance-authority';
 
-import { LockCard } from '~/components/panel/LockCard';
+import { LockCard } from '~/components/panel/lock-card';
 import { trpc } from '~/utils/trpc';
 import { cn } from '~/lib/utils';
 

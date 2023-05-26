@@ -8,9 +8,9 @@ import {
   NavbarLayout,
   NavbarLinks,
   type NavbarLink
-} from '~/components/ui/Navbar';
-import { NavbarLogin } from '~/components/ui/NavbarLogin';
-import { Separator } from '~/components/ui/Separator';
+} from '~/components/ui/navbar';
+import { NavbarLogin } from '~/components/ui/navbar-login';
+import { Separator } from '~/components/ui/separator';
 import { TRPCProvider } from '~/components/provider/TRPCProvider';
 
 import '~/styles/globals.css';
