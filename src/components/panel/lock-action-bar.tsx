@@ -3,6 +3,9 @@
 import * as React from 'react';
 import { useAuth } from '@clerk/nextjs';
 import { cva } from 'class-variance-authority';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 
 import { Button, buttonVariants } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
@@ -23,14 +26,38 @@ export const lockActionBarStyle = cva('mt-10 flex gap-x-3');
 
 export type LockActionProps = React.ComponentProps<'div'>;
 
+const lockFormSchema = z.object({
+  lockName: z.string().max(15),
+  description: z.string().max(20)
+});
+
 export function LockActionBar({ className, ...props }: LockActionProps) {
   const addLock = trpc.lock.add.useMutation();
+  const lockForm = useForm<z.infer<typeof lockFormSchema>>({
+    resolver: zodResolver(lockFormSchema)
+  });
   const { userId } = useAuth();
+  const [isDialogOpen, setDialogOpen] = React.useState(false);
 
+  function onAddLock({
+    lockName,
+    description
+  }: z.infer<typeof lockFormSchema>) {
+    if (!userId) return;
+    addLock.mutate({
+      name: lockName,
+      description: description,
+      locked: true,
+      owner: userId
+    });
+    setDialogOpen(false);
+  }
+
+  // TODO: Use Dialog instead of AlertDialog
   return (
     <div className={`${cn(lockActionBarStyle({ className }))}`} {...props}>
       <Input placeholder="Search..." accept="text" disabled />
-      <AlertDialog>
+      <AlertDialog open={isDialogOpen} onOpenChange={setDialogOpen}>
         <AlertDialogTrigger
           className={`${cn(
             buttonVariants(),
@@ -43,20 +70,17 @@ export function LockActionBar({ className, ...props }: LockActionProps) {
           <AlertDialogHeader>
             <AlertDialogTitle>Add a New Lock</AlertDialogTitle>
           </AlertDialogHeader>
-          <form
-            onSubmit={(_) => {
-              // addLock.mutate({
-              //   name: 'Kitchen',
-              //   description: 'what',
-              //   locked: false,
-              //   owner: 'Someone'
-              // });
-            }}
-          >
+          {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+          <form onSubmit={lockForm.handleSubmit(onAddLock)}>
             <div className="mb-10 w-full">
               <div className="grid w-full max-w-sm items-center gap-1.5">
                 <Label htmlFor="name">Name</Label>
-                <Input type="name" id="name" placeholder="Lock Name" />
+                <Input
+                  type="name"
+                  id="name"
+                  placeholder="Lock Name"
+                  {...lockForm.register('lockName', { required: true })}
+                />
               </div>
               <div className="mt-4 grid w-full max-w-sm items-center gap-1.5">
                 <Label htmlFor="description">Description</Label>
@@ -64,6 +88,7 @@ export function LockActionBar({ className, ...props }: LockActionProps) {
                   type="description"
                   id="description"
                   placeholder="Description"
+                  {...lockForm.register('description', { required: true })}
                 />
               </div>
             </div>
