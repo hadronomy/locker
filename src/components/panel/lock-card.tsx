@@ -9,7 +9,7 @@ import { cn } from '~/lib/utils';
 import { trpc } from '~/utils/trpc';
 
 export const lockCardStyle = cva(
-  'container flex h-auto w-full flex-col gap-y-6 rounded-md border px-5 py-5 shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)]'
+  'container flex h-auto w-full flex-col gap-y-6 rounded-md border px-5 py-5 shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_5px_5px_10px_4px_rgba(45,78,255,0.05)]'
 );
 
 export type LockCardProps = React.ComponentProps<'div'> &
