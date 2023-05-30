@@ -17,6 +17,15 @@ import {
   DialogFooter,
   DialogTrigger
 } from '~/components/ui/dialog';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '~/components/ui/form';
 
 import { cn } from '~/lib/utils';
 import { Label } from '~/components/ui/label';
@@ -28,8 +37,22 @@ export const lockActionBarStyle = cva('mt-10 flex gap-x-3');
 export type LockActionProps = React.ComponentProps<'div'>;
 
 const lockFormSchema = z.object({
-  lockName: z.string().min(3).max(15),
-  description: z.string().min(3).max(20)
+  lockName: z
+    .string()
+    .min(3, {
+      message: 'Lock name must be at least 3 characters'
+    })
+    .max(15, {
+      message: 'Lock name must be at max 15 characters'
+    }),
+  description: z
+    .string()
+    .min(3, {
+      message: 'Description must be at least 3 characters'
+    })
+    .max(20, {
+      message: 'Description must be at max 20 characters'
+    })
 });
 
 export function LockActionBar({ className, ...props }: LockActionProps) {
@@ -78,32 +101,49 @@ export function LockActionBar({ className, ...props }: LockActionProps) {
           <DialogHeader>
             <DialogTitle>Add a New Lock</DialogTitle>
           </DialogHeader>
-          {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-          <form onSubmit={lockForm.handleSubmit(onAddLock)}>
-            <div className="mb-10 w-full">
-              <div className="grid w-full max-w-sm items-center gap-1.5">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  type="name"
-                  id="name"
-                  placeholder="Lock Name"
-                  {...lockForm.register('lockName', { required: true })}
+
+          <Form {...lockForm}>
+            {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+            <form onSubmit={lockForm.handleSubmit(onAddLock)}>
+              <div className="mb-10 w-full space-y-4">
+                <FormField
+                  control={lockForm.control}
+                  name="lockName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Lock Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="My lovely lock" {...field} />
+                      </FormControl>
+                      <FormDescription>
+                        The name of the new lock
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={lockForm.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Description</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="It REALLY is a lovely lock"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
               </div>
-              <div className="mt-4 grid w-full max-w-sm items-center gap-1.5">
-                <Label htmlFor="description">Description</Label>
-                <Input
-                  type="description"
-                  id="description"
-                  placeholder="Description"
-                  {...lockForm.register('description', { required: true })}
-                />
-              </div>
-            </div>
-            <DialogFooter>
-              <Button type="submit">Continue</Button>
-            </DialogFooter>
-          </form>
+              <DialogFooter>
+                <Button type="submit">Add</Button>
+              </DialogFooter>
+            </form>
+          </Form>
         </DialogContent>
       </Dialog>
     </div>
