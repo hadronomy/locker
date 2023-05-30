@@ -33,7 +33,7 @@ const lockFormSchema = z.object({
 });
 
 export function LockActionBar({ className, ...props }: LockActionProps) {
-  const addLock = trpc.lock.add.useMutation();
+  const addLockMutation = trpc.lock.add.useMutation();
   const { addLock: addStoreLock } = useLockStore();
   const lockForm = useForm<z.infer<typeof lockFormSchema>>({
     resolver: zodResolver(lockFormSchema)
@@ -46,7 +46,7 @@ export function LockActionBar({ className, ...props }: LockActionProps) {
     description
   }: z.infer<typeof lockFormSchema>) {
     if (!userId) return;
-    addLock.mutate(
+    addLockMutation.mutate(
       {
         name: lockName,
         description: description,
@@ -62,7 +62,6 @@ export function LockActionBar({ className, ...props }: LockActionProps) {
     setDialogOpen(false);
   }
 
-  // TODO: Use Dialog instead of AlertDialog
   return (
     <div className={`${cn(lockActionBarStyle({ className }))}`} {...props}>
       <Input placeholder="Search..." accept="text" disabled />
