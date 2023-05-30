@@ -21,6 +21,7 @@ import {
 import { cn } from '~/lib/utils';
 import { Label } from '~/components/ui/label';
 import { trpc } from '~/utils/trpc';
+import { useLockStore } from '~/store';
 
 export const lockActionBarStyle = cva('mt-10 flex gap-x-3');
 
@@ -33,6 +34,7 @@ const lockFormSchema = z.object({
 
 export function LockActionBar({ className, ...props }: LockActionProps) {
   const addLock = trpc.lock.add.useMutation();
+  const { addLock: addStoreLock } = useLockStore();
   const lockForm = useForm<z.infer<typeof lockFormSchema>>({
     resolver: zodResolver(lockFormSchema)
   });
@@ -44,12 +46,19 @@ export function LockActionBar({ className, ...props }: LockActionProps) {
     description
   }: z.infer<typeof lockFormSchema>) {
     if (!userId) return;
-    addLock.mutate({
-      name: lockName,
-      description: description,
-      locked: true,
-      owner: userId
-    });
+    addLock.mutate(
+      {
+        name: lockName,
+        description: description,
+        locked: true,
+        owner: userId
+      },
+      {
+        onSuccess: (lock) => {
+          addStoreLock(lock);
+        }
+      }
+    );
     setDialogOpen(false);
   }
 

@@ -6,6 +6,7 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import { LockCard } from '~/components/panel/lock-card';
 import { trpc } from '~/utils/trpc';
 import { cn } from '~/lib/utils';
+import { useLockStore } from '~/store';
 
 export const lockGridStyle = cva('grid grid-cols-1 gap-8 md:grid-cols-3');
 
@@ -13,17 +14,23 @@ export type LockGridProps = React.ComponentProps<'div'> &
   VariantProps<typeof lockGridStyle>;
 
 export function LockGrid({ className, ...props }: LockGridProps) {
-  const { data } = trpc.lock.getAll.useQuery();
+  const { locks, setLocks } = useLockStore();
+  trpc.lock.getAll.useQuery(undefined, {
+    onSuccess: (data) => {
+      setLocks(data);
+    }
+  });
+
   return (
     <div className={`${cn(lockGridStyle({ className }))}`} {...props}>
-      {!!data &&
-        data.map((data) => (
+      {!!locks &&
+        locks.map((lock) => (
           <LockCard
-            key={data.id}
-            lockId={data.id}
-            name={data.name}
-            description={data.description}
-            locked={data.locked}
+            key={lock.id}
+            lockId={lock.id}
+            name={lock.name}
+            description={lock.description}
+            locked={lock.locked}
           />
         ))}
     </div>
