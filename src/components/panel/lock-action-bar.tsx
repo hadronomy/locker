@@ -10,14 +10,14 @@ import { z } from 'zod';
 import { Button, buttonVariants } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import {
-  AlertDialog,
-  AlertDialogTrigger,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogFooter,
-  AlertDialogCancel
-} from '~/components/ui/alert-dialog';
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+  DialogTrigger
+} from '~/components/ui/dialog';
+
 import { cn } from '~/lib/utils';
 import { Label } from '~/components/ui/label';
 import { trpc } from '~/utils/trpc';
@@ -66,19 +66,19 @@ export function LockActionBar({ className, ...props }: LockActionProps) {
   return (
     <div className={`${cn(lockActionBarStyle({ className }))}`} {...props}>
       <Input placeholder="Search..." accept="text" disabled />
-      <AlertDialog open={isDialogOpen} onOpenChange={setDialogOpen}>
-        <AlertDialogTrigger
+      <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
+        <DialogTrigger
           className={`${cn(
             buttonVariants(),
             'w-40 font-extrabold tracking-tighter'
           )}`}
         >
           Add New
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Add a New Lock</AlertDialogTitle>
-          </AlertDialogHeader>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add a New Lock</DialogTitle>
+          </DialogHeader>
           {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
           <form onSubmit={lockForm.handleSubmit(onAddLock)}>
             <div className="mb-10 w-full">
@@ -101,13 +101,12 @@ export function LockActionBar({ className, ...props }: LockActionProps) {
                 />
               </div>
             </div>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <DialogFooter>
               <Button type="submit">Continue</Button>
-            </AlertDialogFooter>
+            </DialogFooter>
           </form>
-        </AlertDialogContent>
-      </AlertDialog>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
