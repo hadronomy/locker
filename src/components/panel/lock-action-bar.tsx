@@ -100,7 +100,6 @@ export function LockActionBar({ className, ...props }: LockActionProps) {
           <DialogHeader>
             <DialogTitle>Add a New Lock</DialogTitle>
           </DialogHeader>
-
           <Form {...lockForm}>
             {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
             <form onSubmit={lockForm.handleSubmit(onAddLock)}>
