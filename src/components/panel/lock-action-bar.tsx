@@ -28,8 +28,8 @@ export const lockActionBarStyle = cva('mt-10 flex gap-x-3');
 export type LockActionProps = React.ComponentProps<'div'>;
 
 const lockFormSchema = z.object({
-  lockName: z.string().max(15),
-  description: z.string().max(20)
+  lockName: z.string().min(3).max(15),
+  description: z.string().min(3).max(20)
 });
 
 export function LockActionBar({ className, ...props }: LockActionProps) {
