@@ -20,6 +20,24 @@ export const lockRouter = createTRPCRouter({
   getAll: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.smartLock.findMany({ where: { owner: ctx.auth.userId } });
   }),
+  update: protectedProcedure
+    .input(
+      z.object({
+        id: z.number(),
+        data: z.object({
+          name: z.string(),
+          description: z.string(),
+          locked: z.boolean(),
+          owner: z.string()
+        })
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.smartLock.update({
+        where: { id: input.id },
+        data: input.data
+      });
+    }),
   remove: protectedProcedure
     .input(z.object({ id: z.number() }))
     .mutation(({ ctx, input }) => {

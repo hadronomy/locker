@@ -31,6 +31,7 @@ export function LockGrid({ className, ...props }: LockGridProps) {
             name={lock.name}
             description={lock.description}
             locked={lock.locked}
+            owner={lock.owner}
           />
         ))}
     </div>

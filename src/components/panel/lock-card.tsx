@@ -19,6 +19,7 @@ export type LockCardProps = React.ComponentProps<'div'> &
     name: string;
     description: string;
     locked: boolean;
+    owner: string;
   };
 
 export function LockCard({
@@ -27,10 +28,12 @@ export function LockCard({
   name,
   description,
   locked,
+  owner,
   ...props
 }: LockCardProps) {
   const deleteLock = trpc.lock.remove.useMutation();
-  const { removeLock } = useLockStore();
+  const updateLock = trpc.lock.update.useMutation();
+  const { removeLock, toggleLock } = useLockStore();
 
   function handleDelete() {
     deleteLock.mutate(
@@ -43,16 +46,36 @@ export function LockCard({
     );
   }
 
+  function handleToggleLock() {
+    updateLock.mutate(
+      {
+        id: lockId,
+        data: {
+          name,
+          description,
+          locked: !locked,
+          owner
+        }
+      },
+      {
+        onSuccess: (lock) => {
+          // setLock({ ...lock, locked: !lock.locked });
+          toggleLock(lock.id);
+        }
+      }
+    );
+  }
+
   return (
     <div className={`${cn(lockCardStyle({ className }))}`} {...props}>
       <div className="flex flex-col place-items-center justify-center">
-        {!locked && (
+        {locked && (
           <Unlock
             className="text-green-100 drop-shadow-[0_0px_50px_rgba(0,255,0,1)]"
             size={100}
           />
         )}
-        {locked && (
+        {!locked && (
           <Lock
             className="text-red-100 shadow-xl drop-shadow-[0_0px_50px_rgba(255,0,0,1)]"
             size={100}
@@ -69,13 +92,14 @@ export function LockCard({
         <Button
           variant="outline"
           className="h-12 w-full text-lg font-extrabold tracking-tighter"
+          onClick={handleToggleLock}
         >
           {locked && 'Lock'}
           {!locked && 'Unlock'}
         </Button>
         <Button
-          className="h-12 w-[50px] flex-grow-[0.5] text-lg font-extrabold tracking-tighter"
           variant="destructive"
+          className="h-12 w-[50px] flex-grow-[0.5] text-lg font-extrabold tracking-tighter"
           onClick={handleDelete}
         >
           <Trash size={32} />
