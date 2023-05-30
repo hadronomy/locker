@@ -28,7 +28,6 @@ import {
 } from '~/components/ui/form';
 
 import { cn } from '~/lib/utils';
-import { Label } from '~/components/ui/label';
 import { trpc } from '~/utils/trpc';
 import { useLockStore } from '~/store';
 
