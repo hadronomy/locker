@@ -1,35 +1,29 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const path = require('path');
-
 /** @type {import("eslint").Linter.Config} */
 const config = {
-  overrides: [
-    {
-      extends: [
-        'plugin:@typescript-eslint/recommended-requiring-type-checking'
-      ],
-      files: ['*.ts', '*.tsx'],
-      parserOptions: {
-        project: path.join(__dirname, 'tsconfig.json')
-      }
-    }
-  ],
-  parser: '@typescript-eslint/parser',
+  parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: path.join(__dirname, 'tsconfig.json')
+    project: true,
   },
-  plugins: ['@typescript-eslint'],
-  extends: ['next/core-web-vitals', 'plugin:@typescript-eslint/recommended'],
+  plugins: ["@typescript-eslint"],
+  extends: [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended-type-checked",
+    "plugin:@typescript-eslint/stylistic-type-checked",
+  ],
   rules: {
-    '@typescript-eslint/consistent-type-imports': [
-      'warn',
+    "@typescript-eslint/consistent-type-imports": [
+      "warn",
       {
-        prefer: 'type-imports',
-        fixStyle: 'inline-type-imports'
-      }
+        prefer: "type-imports",
+        fixStyle: "inline-type-imports",
+      },
     ],
-    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }]
-  }
+    "@typescript-eslint/consistent-type-definitions": [
+      "warn", 
+      "type"
+    ],
+    "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+  },
 };
 
 module.exports = config;
