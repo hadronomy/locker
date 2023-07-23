@@ -6,6 +6,7 @@ import { cva } from 'class-variance-authority';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import invariant from 'tiny-invariant';
 
 import { Button, buttonVariants } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
@@ -67,7 +68,8 @@ export function LockActionBar({ className, ...props }: LockActionProps) {
     lockName,
     description
   }: z.infer<typeof lockFormSchema>) {
-    if (!userId) return;
+    invariant(userId !== undefined, 'the userId is undefined');
+    invariant(userId !== null, 'the userId is null');
     addLockMutation.mutate(
       {
         name: lockName,

@@ -15,7 +15,7 @@ export const lockCardStyle = cva(
 
 export type LockCardProps = React.ComponentProps<'div'> &
   VariantProps<typeof lockCardStyle> & {
-    lockId: number;
+    lockId: string;
     name: string;
     description: string;
     locked: boolean;
@@ -39,8 +39,8 @@ export function LockCard({
     deleteLock.mutate(
       { id: lockId },
       {
-        onSuccess: (lock) => {
-          removeLock(lock.id);
+        onSuccess: (_) => {
+          removeLock(lockId);
         }
       }
     );

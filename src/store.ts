@@ -1,13 +1,13 @@
 import { create } from 'zustand';
-import { type SmartLock } from '@prisma/client';
+import { type SmartLock } from '~/db/schema/smart-locks';
 
 type LockState = {
   locks: SmartLock[];
-  toggleLock: (lockId: number) => void;
+  toggleLock: (id: string) => void;
   setLock: (updatedLock: SmartLock) => void;
   setLocks: (locks: SmartLock[]) => void;
-  addLock: (newLock: SmartLock) => void;
-  removeLock: (lockId: number) => void;
+  addLock: (lock: SmartLock) => void;
+  removeLock: (id: string) => void;
 };
 
 export const useLockStore = create<LockState>()((set) => ({

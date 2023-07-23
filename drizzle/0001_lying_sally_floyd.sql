@@ -1,0 +1,1 @@
+ALTER TABLE `smart_lock` MODIFY COLUMN `updatedAt` timestamp NOT NULL;

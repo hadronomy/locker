@@ -22,7 +22,7 @@ import {
   type SignedOutAuthObject
 } from '@clerk/nextjs/server';
 
-import { prisma } from '~/server/db';
+import { db } from '~/db';
 
 type AuthContext = {
   auth: SignedInAuthObject | SignedOutAuthObject;
@@ -42,7 +42,7 @@ type AuthContext = {
 const createInnerTRPCContext = ({ auth }: AuthContext) => {
   return {
     auth,
-    prisma
+    db
   };
 };
 

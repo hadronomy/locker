@@ -12,7 +12,16 @@ import { getBaseUrl } from '~/utils/api';
 type TRPCProviderProps = React.ComponentProps<'div'>;
 
 export function TRPCProvider({ children }: TRPCProviderProps) {
-  const [queryClient] = React.useState(() => new QueryClient());
+  const [queryClient] = React.useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            suspense: true
+          }
+        }
+      })
+  );
   const [trpcClient] = React.useState(() =>
     trpc.createClient({
       links: [
