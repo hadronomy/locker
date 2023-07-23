@@ -3,8 +3,8 @@
 import * as React from 'react';
 import { type VariantProps, cva } from 'class-variance-authority';
 
-import { LockCard } from '~/components/panel/lock-card';
-// import { api } from '~/trpc/client';
+import { LockCard } from './lock-card';
+import { api } from '~/trpc/client';
 import { cn } from '~/utils';
 import { useLockStore } from '~/store';
 
@@ -14,9 +14,9 @@ export type LockGridProps = React.ComponentProps<'div'> &
   VariantProps<typeof lockGridStyle>;
 
 export function LockGrid({ className, ...props }: LockGridProps) {
-  const { locks } = useLockStore();
-  // const locks = await api.smartLock.getAll.query();
-  // setLocks(locks);
+  const { locks, setLocks } = useLockStore();
+  const dbLocks = React.use(api.smartLock.getAll.query());
+  setLocks(dbLocks);
 
   return (
     <div className={`${cn(lockGridStyle({ className }))}`} {...props}>

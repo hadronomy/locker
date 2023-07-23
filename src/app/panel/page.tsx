@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
-import { LockActionBar } from '~/components/panel/lock-action-bar';
-import { LockGrid } from '~/components/panel/lock-grid';
+import { LockActionBar } from './_components/lock-action-bar';
+import { LockGrid } from './_components/lock-grid';
 import { Button } from '~/components/ui/button';
 
 export const runtime = 'edge';

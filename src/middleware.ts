@@ -5,13 +5,7 @@ import { NextResponse } from 'next/server';
 export default authMiddleware({
   signInUrl: '/signin',
   ignoredRoutes: [],
-  publicRoutes: ['/', '/pricing', '/signin(.*)'],
-  apiRoutes: [
-    '/api/trpc/edge/smartLock.getAll',
-    '/api/trpc/edge/smartLock.update',
-    '/api/trpc/edge/smartLock.add',
-    '/api/trpc/edge/smartLock.remove'
-  ],
+  publicRoutes: ['/', '/pricing', '/signin(.*)', '/api(.*)'],
   afterAuth(auth, req) {
     if (auth.isPublicRoute) {
       // Don't do anything for public routes
