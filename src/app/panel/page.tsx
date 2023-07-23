@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+
 import { LockActionBar } from '~/components/panel/lock-action-bar';
 import { LockGrid } from '~/components/panel/lock-grid';
 
@@ -11,9 +13,11 @@ export default function PanelPage() {
     <main className="mx-auto flex min-h-screen max-w-screen-xl flex-col px-5 md:px-10">
       <LockActionBar />
       <div className="flex flex-col py-8">
-        <React.Suspense fallback={<p>Loading...</p>}>
-          <LockGrid />
-        </React.Suspense>
+        <ErrorBoundary fallback={<p>Oops!</p>}>
+          <React.Suspense fallback={<p>Loading...</p>}>
+            <LockGrid />
+          </React.Suspense>
+        </ErrorBoundary>
       </div>
     </main>
   );
