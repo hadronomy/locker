@@ -1,4 +1,4 @@
-import type { HTTPLinkOptions, HTTPHeaders, TRPCLink } from '@trpc/client';
+import type { HTTPBatchLinkOptions, HTTPHeaders, TRPCLink } from '@trpc/client';
 import { httpBatchLink } from '@trpc/client';
 
 import type { AppRouter } from '~/api/root';
@@ -8,7 +8,7 @@ export const endingLink = (opts?: { headers?: HTTPHeaders }) =>
   ((runtime) => {
     const sharedOpts = {
       headers: opts?.headers
-    } satisfies Partial<HTTPLinkOptions>;
+    } satisfies Partial<HTTPBatchLinkOptions>;
 
     const edgeLink = httpBatchLink({
       ...sharedOpts,
