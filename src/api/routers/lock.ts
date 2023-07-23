@@ -3,7 +3,7 @@ import { eq } from 'drizzle-orm';
 import invariant from 'tiny-invariant';
 import { createId } from '@paralleldrive/cuid2';
 
-import { createTRPCRouter, protectedProcedure } from '~/server/api/trpc';
+import { createTRPCRouter, protectedProcedure } from '~/api/trpc';
 import { smartLocks } from '~/db/schema/smart-locks';
 
 export const lockRouter = createTRPCRouter({
@@ -65,7 +65,8 @@ export const lockRouter = createTRPCRouter({
     }),
   remove: protectedProcedure
     .input(z.object({ id: z.string() }))
-    .mutation(({ ctx, input }) => {
-      return ctx.db.delete(smartLocks).where(eq(smartLocks.id, input.id));
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.delete(smartLocks).where(eq(smartLocks.id, input.id));
+      return input.id;
     })
 });

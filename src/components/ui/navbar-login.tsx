@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { buttonVariants } from './button';
-import { cn } from '~/utils/cn';
+import { cn } from '~/utils';
 
 export const navbarLoginStyle = cva('flex');
 

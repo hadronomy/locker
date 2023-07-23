@@ -5,6 +5,8 @@ import { LockActionBar } from '~/components/panel/lock-action-bar';
 import { LockGrid } from '~/components/panel/lock-grid';
 import { Button } from '~/components/ui/button';
 
+export const runtime = 'edge';
+
 export const metadata = {
   title: 'Locker - Panel'
 };

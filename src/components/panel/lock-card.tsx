@@ -5,8 +5,8 @@ import { Lock, Unlock, Trash } from 'lucide-react';
 import { type VariantProps, cva } from 'class-variance-authority';
 
 import { Button } from '~/components/ui/button';
-import { cn } from '~/utils/cn';
-import { trpc } from '~/utils/trpc';
+import { cn } from '~/utils';
+import { api } from '~/trpc/client';
 import { useLockStore } from '~/store';
 
 export const lockCardStyle = cva(
@@ -31,39 +31,24 @@ export function LockCard({
   owner,
   ...props
 }: LockCardProps) {
-  const deleteLock = trpc.lock.remove.useMutation();
-  const updateLock = trpc.lock.update.useMutation();
   const { removeLock, toggleLock } = useLockStore();
 
-  function handleDelete() {
-    deleteLock.mutate(
-      { id: lockId },
-      {
-        onSuccess: (_) => {
-          removeLock(lockId);
-        }
-      }
-    );
+  async function handleDelete() {
+    const id = await api.smartLock.remove.mutate({ id: lockId });
+    removeLock(id);
   }
 
-  function handleToggleLock() {
-    updateLock.mutate(
-      {
-        id: lockId,
-        data: {
-          name,
-          description,
-          locked: !locked,
-          owner
-        }
-      },
-      {
-        onSuccess: (lock) => {
-          // setLock({ ...lock, locked: !lock.locked });
-          toggleLock(lock.id);
-        }
+  async function handleToggleLock() {
+    const updatedLock = await api.smartLock.update.mutate({
+      id: lockId,
+      data: {
+        name,
+        description,
+        locked: !locked,
+        owner
       }
-    );
+    });
+    toggleLock(updatedLock.id);
   }
 
   return (
@@ -92,6 +77,7 @@ export function LockCard({
         <Button
           variant="outline"
           className="h-12 w-full text-lg font-extrabold tracking-tighter"
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onClick={handleToggleLock}
         >
           {locked && 'Lock'}
@@ -100,6 +86,7 @@ export function LockCard({
         <Button
           variant="destructive"
           className="h-12 w-[50px] flex-grow-[0.5] text-lg font-extrabold tracking-tighter"
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onClick={handleDelete}
         >
           <Trash size={32} />

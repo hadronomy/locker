@@ -28,8 +28,8 @@ import {
   FormMessage
 } from '~/components/ui/form';
 
-import { cn } from '~/utils/cn';
-import { trpc } from '~/utils/trpc';
+import { cn } from '~/utils';
+import { api } from '~/trpc/client';
 import { useLockStore } from '~/store';
 
 export const lockActionBarStyle = cva('mt-10 flex gap-x-3');
@@ -56,7 +56,6 @@ const lockFormSchema = z.object({
 });
 
 export function LockActionBar({ className, ...props }: LockActionProps) {
-  const addLockMutation = trpc.lock.add.useMutation();
   const { addLock: addStoreLock } = useLockStore();
   const lockForm = useForm<z.infer<typeof lockFormSchema>>({
     resolver: zodResolver(lockFormSchema)
@@ -64,25 +63,19 @@ export function LockActionBar({ className, ...props }: LockActionProps) {
   const { userId } = useAuth();
   const [isDialogOpen, setDialogOpen] = React.useState(false);
 
-  function onAddLock({
+  async function onAddLock({
     lockName,
     description
   }: z.infer<typeof lockFormSchema>) {
     invariant(userId !== undefined, 'the userId is undefined');
     invariant(userId !== null, 'the userId is null');
-    addLockMutation.mutate(
-      {
-        name: lockName,
-        description: description,
-        locked: true,
-        owner: userId
-      },
-      {
-        onSuccess: (lock) => {
-          addStoreLock(lock);
-        }
-      }
-    );
+    const newLock = await api.smartLock.add.mutate({
+      name: lockName,
+      description: description,
+      locked: true,
+      owner: userId
+    });
+    addStoreLock(newLock);
     setDialogOpen(false);
   }
 

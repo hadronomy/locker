@@ -14,18 +14,21 @@
  *
  * These allow you to access things when processing a request, like the database, the session, etc.
  */
-import { type CreateNextContextOptions } from '@trpc/server/adapters/next';
 import { type inferAsyncReturnType, initTRPC, TRPCError } from '@trpc/server';
 import {
   getAuth,
   type SignedInAuthObject,
   type SignedOutAuthObject
 } from '@clerk/nextjs/server';
+import { type NextRequest } from 'next/server';
+import superjson from 'superjson';
+import { ZodError } from 'zod';
 
 import { db } from '~/db';
 
-type AuthContext = {
-  auth: SignedInAuthObject | SignedOutAuthObject;
+type CreateContextOptions = {
+  auth: SignedInAuthObject | SignedOutAuthObject | null;
+  req?: NextRequest;
 };
 
 /**
@@ -39,9 +42,9 @@ type AuthContext = {
  * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
  */
 // eslint-disable-next-line @typescript-eslint/require-await
-const createInnerTRPCContext = ({ auth }: AuthContext) => {
+const createInnerTRPCContext = (opts: CreateContextOptions) => {
   return {
-    auth,
+    ...opts,
     db
   };
 };
@@ -53,9 +56,11 @@ const createInnerTRPCContext = ({ auth }: AuthContext) => {
  * @see https://trpc.io/docs/context
  */
 // eslint-disable-next-line @typescript-eslint/require-await
-export const createTRPCContext = async (opts: CreateNextContextOptions) => {
+export const createTRPCContext = async (opts: { req: NextRequest }) => {
+  const auth = getAuth(opts.req);
   return createInnerTRPCContext({
-    auth: getAuth(opts.req)
+    auth,
+    req: opts.req
   });
 };
 
@@ -64,13 +69,9 @@ export type Context = inferAsyncReturnType<typeof createTRPCContext>;
 /**
  * 2. INITIALIZATION
  *
- * This is where the tRPC API is initialized, connecting the context and transformer. We also parse
- * ZodErrors so that you get typesafety on the frontend if your procedure fails due to validation
- * errors on the backend.
+ * This is where the trpc api is initialized, connecting the context and
+ * transformer
  */
-import superjson from 'superjson';
-import { ZodError } from 'zod';
-
 const t = initTRPC.context<Context>().create({
   transformer: superjson,
   errorFormatter({ shape, error }) {
@@ -82,17 +83,6 @@ const t = initTRPC.context<Context>().create({
       }
     };
   }
-});
-
-const isAuthed = t.middleware(({ next, ctx }) => {
-  if (!ctx.auth.userId) {
-    throw new TRPCError({ code: 'UNAUTHORIZED' });
-  }
-  return next({
-    ctx: {
-      auth: ctx.auth
-    }
-  });
 });
 
 /**
@@ -108,6 +98,7 @@ const isAuthed = t.middleware(({ next, ctx }) => {
  * @see https://trpc.io/docs/router
  */
 export const createTRPCRouter = t.router;
+export const mergeRouters = t.mergeRouters;
 
 /**
  * Public (unauthenticated) procedure
@@ -118,7 +109,21 @@ export const createTRPCRouter = t.router;
  */
 export const publicProcedure = t.procedure;
 
+const enforceUserIsAuthed = t.middleware(({ next, ctx }) => {
+  if (!ctx.auth?.userId) {
+    throw new TRPCError({ code: 'UNAUTHORIZED' });
+  }
+  return next({
+    ctx: {
+      auth: {
+        ...ctx.auth,
+        userId: ctx.auth.userId
+      }
+    }
+  });
+});
+
 /**
  * Protected (Authenticated) procedure
  */
-export const protectedProcedure = t.procedure.use(isAuthed);
+export const protectedProcedure = t.procedure.use(enforceUserIsAuthed);

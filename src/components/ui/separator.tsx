@@ -3,7 +3,7 @@
 import * as RadixSeparator from '@radix-ui/react-separator';
 import { type VariantProps, cva } from 'class-variance-authority';
 
-import { cn } from '~/utils/cn';
+import { cn } from '~/utils';
 
 export const separatorStyle = cva('bg-accent mx-[15px]', {
   variants: {
