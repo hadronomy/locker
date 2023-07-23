@@ -5,7 +5,7 @@ import { type VariantProps, cva } from 'class-variance-authority';
 
 import { LockCard } from '~/components/panel/lock-card';
 import { trpc } from '~/utils/trpc';
-import { cn } from '~/lib/utils';
+import { cn } from '~/utils/cn';
 import { useLockStore } from '~/store';
 
 export const lockGridStyle = cva('grid grid-cols-1 gap-8 md:grid-cols-3');

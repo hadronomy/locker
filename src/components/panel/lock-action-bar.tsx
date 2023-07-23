@@ -28,7 +28,7 @@ import {
   FormMessage
 } from '~/components/ui/form';
 
-import { cn } from '~/lib/utils';
+import { cn } from '~/utils/cn';
 import { trpc } from '~/utils/trpc';
 import { useLockStore } from '~/store';
 

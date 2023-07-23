@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { z } from 'zod';
 
-import { cn } from '~/lib/utils';
+import { cn } from '~/utils/cn';
 import { type NavigationMenuProps } from '@radix-ui/react-navigation-menu';
 import {
   NavigationMenu,

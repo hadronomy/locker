@@ -5,7 +5,7 @@ import { Lock, Unlock, Trash } from 'lucide-react';
 import { type VariantProps, cva } from 'class-variance-authority';
 
 import { Button } from '~/components/ui/button';
-import { cn } from '~/lib/utils';
+import { cn } from '~/utils/cn';
 import { trpc } from '~/utils/trpc';
 import { useLockStore } from '~/store';
 

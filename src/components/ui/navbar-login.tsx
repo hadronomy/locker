@@ -4,10 +4,10 @@ import * as React from 'react';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { UserButton, useAuth } from '@clerk/nextjs';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { buttonVariants } from './button';
-import { cn } from '~/lib/utils';
-import { usePathname } from 'next/navigation';
+import { cn } from '~/utils/cn';
 
 export const navbarLoginStyle = cva('flex');
 
