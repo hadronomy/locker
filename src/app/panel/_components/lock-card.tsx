@@ -8,6 +8,7 @@ import { Button } from '~/components/ui/button';
 import { cn } from '~/utils';
 import { api } from '~/trpc/client';
 import { useLockStore } from '~/store';
+import { Skeleton } from '~/components/ui/skeleton';
 
 export const lockCardStyle = cva(
   'container overflow-hidden flex h-auto w-full flex-col gap-y-6 rounded-md border px-5 py-5 shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_5px_5px_10px_4px_rgba(45,78,255,0.05)]'
@@ -54,13 +55,13 @@ export function LockCard({
   return (
     <div className={`${cn(lockCardStyle({ className }))}`} {...props}>
       <div className="flex flex-col place-items-center justify-center">
-        {locked && (
+        {!locked && (
           <Unlock
             className="text-green-100 drop-shadow-[0_0px_50px_rgba(0,255,0,1)]"
             size={100}
           />
         )}
-        {!locked && (
+        {locked && (
           <Lock
             className="text-red-100 shadow-xl drop-shadow-[0_0px_50px_rgba(255,0,0,1)]"
             size={100}
@@ -80,8 +81,8 @@ export function LockCard({
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onClick={handleToggleLock}
         >
-          {locked && 'Lock'}
-          {!locked && 'Unlock'}
+          {!locked && 'Lock'}
+          {locked && 'Unlock'}
         </Button>
         <Button
           variant="destructive"
@@ -93,5 +94,13 @@ export function LockCard({
         </Button>
       </div>
     </div>
+  );
+}
+
+export type LockCardSkeletonProps = React.ComponentProps<'div'>;
+
+export function LockCardSkeleton({ className }: LockCardSkeletonProps) {
+  return (
+    <Skeleton className={`${cn(lockCardStyle({ className }), 'h-[286px]')}`} />
   );
 }

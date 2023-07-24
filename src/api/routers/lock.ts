@@ -32,7 +32,10 @@ export const lockRouter = createTRPCRouter({
       });
     }),
   getAll: protectedProcedure.query(({ ctx }) => {
-    return ctx.db.select().from(smartLocks).where(eq(smartLocks.owner, 'test'));
+    return ctx.db
+      .select()
+      .from(smartLocks)
+      .where(eq(smartLocks.owner, ctx.auth.userId));
   }),
   update: protectedProcedure
     .input(

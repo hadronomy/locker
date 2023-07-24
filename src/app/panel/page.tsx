@@ -5,13 +5,17 @@ import { LockActionBar } from './_components/lock-action-bar';
 import { LockGrid } from './_components/lock-grid';
 import { Button } from '~/components/ui/button';
 
+import { api } from '~/trpc/server';
+import { delay } from '~/utils';
+
 export const runtime = 'edge';
 
 export const metadata = {
   title: 'Locker - Panel'
 };
 
-export default function PanelPage() {
+export default async function PanelPage() {
+  const locks = await api.smartLock.getAll.query();
   return (
     <main className="mx-auto flex min-h-screen max-w-screen-xl flex-col px-5 md:px-10">
       <LockActionBar />
@@ -24,9 +28,7 @@ export default function PanelPage() {
             </div>
           }
         >
-          <React.Suspense fallback={<p>Loading...</p>}>
-            <LockGrid />
-          </React.Suspense>
+          <LockGrid smartLocks={locks} />
         </ErrorBoundary>
       </div>
     </main>

@@ -19,8 +19,8 @@ export default authMiddleware({
       return NextResponse.redirect(url);
     }
     return NextResponse.next();
-  },
-  clockSkewInMs: 50
+  }
+  // clockSkewInMs: 50
 });
 
 export const config = {
