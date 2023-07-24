@@ -4,10 +4,11 @@ import * as React from 'react';
 import { Lock, Unlock, Trash } from 'lucide-react';
 import { type VariantProps, cva } from 'class-variance-authority';
 
-import { Button } from '~/components/ui/button';
 import { cn } from '~/utils';
 import { api } from '~/trpc/client';
 import { useLockStore } from '~/store';
+
+import { Button } from '~/components/ui/button';
 import { Skeleton } from '~/components/ui/skeleton';
 
 export const lockCardStyle = cva(
@@ -32,7 +33,9 @@ export function LockCard({
   owner,
   ...props
 }: LockCardProps) {
-  const { removeLock, toggleLock } = useLockStore();
+  const {
+    actions: { removeLock, toggleLock }
+  } = useLockStore();
 
   async function handleDelete() {
     const id = await api.smartLock.remove.mutate({ id: lockId });

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
+import { api } from '~/trpc/server';
+
 import { LockActionBar } from './_components/lock-action-bar';
 import { LockGrid } from './_components/lock-grid';
 import { Button } from '~/components/ui/button';
-
-import { api } from '~/trpc/server';
 
 export const runtime = 'edge';
 

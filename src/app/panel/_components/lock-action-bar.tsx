@@ -56,7 +56,9 @@ const lockFormSchema = z.object({
 });
 
 export function LockActionBar({ className, ...props }: LockActionProps) {
-  const { addLock: addStoreLock } = useLockStore();
+  const {
+    actions: { addLock }
+  } = useLockStore();
   const lockForm = useForm<z.infer<typeof lockFormSchema>>({
     resolver: zodResolver(lockFormSchema)
   });
@@ -75,7 +77,7 @@ export function LockActionBar({ className, ...props }: LockActionProps) {
       locked: true,
       owner: userId
     });
-    addStoreLock(newLock);
+    addLock(newLock);
     setDialogOpen(false);
   }
 

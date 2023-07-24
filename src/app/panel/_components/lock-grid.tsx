@@ -16,7 +16,10 @@ export type LockGridProps = React.ComponentProps<'div'> &
   };
 
 export function LockGrid({ className, smartLocks, ...props }: LockGridProps) {
-  const { locks, setLocks } = useLockStore();
+  const {
+    locks,
+    actions: { setLocks }
+  } = useLockStore();
   React.useEffect(() => {
     setLocks(smartLocks);
   }, [setLocks, smartLocks]);
