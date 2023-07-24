@@ -6,7 +6,6 @@ import { LockGrid } from './_components/lock-grid';
 import { Button } from '~/components/ui/button';
 
 import { api } from '~/trpc/server';
-import { delay } from '~/utils';
 
 export const runtime = 'edge';
 
